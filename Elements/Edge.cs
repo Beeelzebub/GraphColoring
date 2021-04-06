@@ -17,8 +17,10 @@ namespace GraphColoring.Elements
             this.FirstVertex = FirstVertex;
             this.SecondVertex = SecondVertex;
 
-            this.FirstVertex.AddAdjacentVertex(SecondVertex);
-            this.SecondVertex.AddAdjacentVertex(FirstVertex);
+            if (!this.FirstVertex.AdjacentVertices.Contains(SecondVertex))
+                this.FirstVertex.AddAdjacentVertex(SecondVertex);
+            if (!this.SecondVertex.AdjacentVertices.Contains(FirstVertex))
+                this.SecondVertex.AddAdjacentVertex(FirstVertex);
         }
 
         public void Draw(Bitmap bmp)

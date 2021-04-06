@@ -38,15 +38,21 @@ namespace GraphColoring
 
         private void Pricture_MouseDown(object sender, MouseEventArgs e)
         {
-            Point relativePoint = e.Location; 
+            Point relativePoint = e.Location;
 
             if (e.Button == MouseButtons.Left)
-            {
                 LeftMouseButtonHundler(relativePoint);
-            }
-            
+            else if (e.Button == MouseButtons.Right)
+                RightMouseButtonHundler(relativePoint);
 
             Draw();
+        }
+
+        private void RightMouseButtonHundler(Point relativePoint)
+        {
+            Vertex vertexInRange = GetVertexInRange(relativePoint);
+
+
         }
 
         private void LeftMouseButtonHundler(Point relativePoint)

@@ -9,18 +9,21 @@ namespace GraphColoring.Elements
 {
     class Vertex
     {
+        private static int Counter = 1;
+        private static int Radius = 30;
         public int Number { get; set; }
-        public int Radius { get; set; }
         public bool IsSelected { get; set; }
         public Point Center { get; set; }
         public List<Vertex> AdjacentVertices { get; set; }
-        public Color Color { get; set; }
+        public Brush VertexColor { get; set; }
 
         public Vertex(Point Center)
         {
             this.Center = Center;
             Radius = 30;
+            Number = Counter++;
             AdjacentVertices = new List<Vertex>();
+            VertexColor = Brushes.Gray;
         }
 
         public void AddAdjacentVertex(Vertex vertex)
@@ -46,9 +49,15 @@ namespace GraphColoring.Elements
         public void Draw(Bitmap bmp)
         {
             Graphics g = Graphics.FromImage(bmp);
+            StringFormat stringFormat = new StringFormat();
+            RectangleF rect = new RectangleF(Center.X - Radius / 2, Center.Y - Radius / 2, Radius, Radius);
             if (IsSelected)
-                g.DrawEllipse(new Pen(Color.Red, 3), Center.X - Radius / 2, Center.Y - Radius / 2, Radius, Radius);
-            g.FillEllipse(Brushes.Gray, Center.X - Radius / 2, Center.Y - Radius / 2, Radius, Radius);
+                g.DrawEllipse(new Pen(Color.Red, 3), rect);
+            g.FillEllipse(VertexColor, rect);
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            g.DrawString(Number.ToString(), new Font("Verdana", 15),
+                new SolidBrush(Color.Yellow), rect, stringFormat);
         }
 
     }

@@ -29,6 +29,7 @@ namespace GraphColoring
             Vertices.Clear();
             Edges.Clear();
             Draw();
+            UpdateListBox();
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -46,13 +47,25 @@ namespace GraphColoring
                 RightMouseButtonHundler(relativePoint);
 
             Draw();
+            UpdateListBox();
         }
 
         private void RightMouseButtonHundler(Point relativePoint)
         {
             Vertex vertexInRange = GetVertexInRange(relativePoint);
 
-
+            if (vertexInRange != null)
+            {
+                List<Edge> edgesToRemove = new List<Edge>();
+                foreach (var edge in Edges)
+                    if (edge.IsBinding(vertexInRange))
+                        edgesToRemove.Add(edge);
+                foreach (var edge in edgesToRemove)
+                    Edges.Remove(edge);
+                
+                Vertices.Remove(vertexInRange);
+            }
+                
         }
 
         private void LeftMouseButtonHundler(Point relativePoint)
@@ -98,6 +111,11 @@ namespace GraphColoring
             Picture.Image = bmp;
         }
 
+        private void UpdateListBox()
+        {
+            EdgesListBox.Items.Add(Edges);
+        }
+
         private Vertex GetVertexInRange(Point point)
         {
             foreach (var vertex in Vertices)
@@ -105,6 +123,21 @@ namespace GraphColoring
                     return vertex;
 
             return null;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Coloring_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

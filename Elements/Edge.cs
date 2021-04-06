@@ -23,6 +23,13 @@ namespace GraphColoring.Elements
                 this.SecondVertex.AddAdjacentVertex(FirstVertex);
         }
 
+        public bool IsBinding(Vertex vertex)
+        {
+            if (FirstVertex.Equals(vertex) || SecondVertex.Equals(vertex))
+                return true;
+            return false;
+        }
+
         public void Draw(Bitmap bmp)
         {
             Graphics g = Graphics.FromImage(bmp);
